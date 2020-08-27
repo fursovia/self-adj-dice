@@ -1,8 +1,13 @@
 [tool.poetry]
 name = "sadice"
-version = "0.1.0"
+version = "0.1.1"
 description = "Self-adjusting Dice Loss implementation"
 authors = ["Ivan Fursov <fursovia@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://github.com/fursovia/self-adj-dice"
+repository = "https://github.com/fursovia/self-adj-dice"
+
 
 [tool.poetry.dependencies]
 python = "^3.6.1"
@@ -10,6 +15,7 @@ torch = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 numpy = "^1.19.1"
+pytest = "^6.0.1"
 
 [build-system]
 requires = ["poetry>=0.12"]
