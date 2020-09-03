@@ -7,6 +7,7 @@ class SelfAdjDiceLoss(torch.nn.Module):
     ("Dice Loss for Data-imbalanced NLP Tasks" paper)
 
     Args:
+        alpha (float): a factor to push down the weight of easy examples
         gamma (float): a factor added to both the nominator and the denominator for smoothing purposes
 
     Shape:
@@ -14,14 +15,15 @@ class SelfAdjDiceLoss(torch.nn.Module):
         - targets: `(N)` where each value is in [0, C - 1]
     """
 
-    def __init__(self, gamma: float = 1.0) -> None:
+    def __init__(self, alpha: float = 1.0, gamma: float = 1.0) -> None:
         super().__init__()
+        self.alpha = alpha
         self.gamma = gamma
 
     def forward(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         probs = torch.softmax(logits, dim=1)
         probs = torch.gather(probs, dim=1, index=targets.unsqueeze(1))
 
-        probs_with_factor = (1 - probs) * probs
+        probs_with_factor = ((1 - probs) ** self.alpha) * probs
         loss = 1 - (2 * probs_with_factor + self.gamma) / (probs_with_factor + 1 + self.gamma)
         return loss.mean()

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sadice"
-version = "0.1.1"
+version = "0.1.2"
 description = "Self-adjusting Dice Loss implementation"
 authors = ["Ivan Fursov <fursovia@gmail.com>"]
 license = "Apache-2.0"
